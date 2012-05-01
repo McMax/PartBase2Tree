@@ -19,10 +19,10 @@ INCLUDES += inc/linkdef.h
 all: $(PROGRAM)
 
 $(PROGRAM): $(OBJECTS)
-	$(warning $(OBJECTS))
 	$(LD) $(LDFLAGS) $^ -o $@ 
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	mkdir -p $(OBJ_DIR)
 	$(CC) -c $(CCFLAGS) $< -o $@ 
 
 Dict.cpp: $(INCLUDES) $(INC_DIR)/linkdef.h
@@ -35,4 +35,6 @@ lib/Particle.o: src/Particle.cpp
 lib/Event.o: src/Event.cpp
 	g++ -c -o $@ $< $(CCFLAGS)
 
-clean:; @rm $(PROGRAM) ./lib/*.o	
+clean:
+	@rm $(PROGRAM) -r ./lib	
+
