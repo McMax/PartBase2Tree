@@ -11,11 +11,17 @@ using namespace std;
 
 #define NEVENTS 100000000
 
-int main()
+int main(int argc, char** argv)
 {
-	ifstream infile("ParticlesBase.txt");
+	if(argc != 3)
+	{
+		cout << "USAGE: converter <inputfile> <outputfile>" << endl;
+		return 0;
+	}
 
-	ParticleTree particletree("ParticleTree_40MC.root");
+	ifstream infile(argv[1]);
+
+	ParticleTree particletree(argv[2]);
 	
 	cout << "Converting" << endl;
 
@@ -49,7 +55,7 @@ int main()
 
 			if(++event >= NEVENTS)
 				break;
-			else if(!(event%10000))
+			else if(!(event%100000))
 				cout << "Event " << event << endl;
 
 			particletree.BeginEvent();

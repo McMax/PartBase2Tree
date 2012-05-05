@@ -13,8 +13,7 @@ PROGRAM = converter
 
 SOURCES := $(shell find $(SRC_DIR) -type f -name "*.cpp")
 OBJECTS := $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SOURCES))
-INCLUDES := $(addprefix -I,$(SRC_DIR))
-INCLUDES += inc/linkdef.h
+INCLUDES := $(shell find $(INC_DIR) -type f -name "*.h")
 
 all: $(PROGRAM)
 
@@ -25,15 +24,9 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	mkdir -p $(OBJ_DIR)
 	$(CC) -c $(CCFLAGS) $< -o $@ 
 
-Dict.cpp: $(INCLUDES) $(INC_DIR)/linkdef.h
+Dict.cpp: $(INCLUDES)
 	@echo "Generating dictionary..."
-	@rootcint -f src/Dict.cpp -c -P -I$ROOTSYS -I/usr/local/include $(INCLUDES)
-
-lib/Particle.o: src/Particle.cpp
-	g++ -c -o $@ $< $(CCFLAGS)
-
-lib/Event.o: src/Event.cpp
-	g++ -c -o $@ $< $(CCFLAGS)
+	@rootcint -f src/Dict.cpp -c -P -I$(ROOTSYS) -I/usr/local/include $(INCLUDES)
 
 clean:
 	@rm $(PROGRAM) -r ./lib	
