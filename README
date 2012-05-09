@@ -1,5 +1,1 @@
 A converter that process my old-fashioned ParticlesBase files to ROOT TTree files.
-
-Still to do:
-- parametrize input filenames
-- change event number modulo to 50k
