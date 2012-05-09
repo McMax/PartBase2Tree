@@ -55,7 +55,7 @@ int main(int argc, char** argv)
 
 			if(++event >= NEVENTS)
 				break;
-			else if(!(event%100000))
+			else if(!(event%500000))
 				cout << "Event " << event << endl;
 
 			particletree.BeginEvent();
