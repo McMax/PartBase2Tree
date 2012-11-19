@@ -17,7 +17,7 @@ int main(int argc, char** argv)
 	{
 		cout << "USAGE: converter <inputfile> <outputfile>" << endl;
 		return 0;
-	}
+ 	}
 
 	ifstream infile(argv[1]);
 
@@ -28,12 +28,12 @@ int main(int argc, char** argv)
 	int event = 0;
 	unsigned pid, eid = 0, old_eid = 0;
 	short charge;
-	float bx, by, px, py, pz;
+	float bx, by, px, py, pz, dedx;
 	bool firstEvent = true;
 
 	while(true)
 	{
-		infile >> pid >> eid >> bx >> by >> charge >> px >> py >> pz;
+		infile >> pid >> eid >> bx >> by >> charge >> px >> py >> pz >> dedx;
 
 		if(firstEvent)
 		{
@@ -55,14 +55,14 @@ int main(int argc, char** argv)
 
 			if(++event >= NEVENTS)
 				break;
-			else if(!(event%500000))
+			else if(!(event%500))
 				cout << "Event " << event << endl;
 
 			particletree.BeginEvent();
 			old_eid = eid;
 		}
 
-		particletree.AddParticle(charge, bx, by, px, py, pz);
+		particletree.AddParticle(charge, bx, by, px, py, pz, dedx);
 
 		//cout << particletree.Check() << endl;
 

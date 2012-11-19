@@ -22,7 +22,7 @@ public:
 	void BeginEvent();
 	void EndEvent();
 	UInt_t Check();
-	void AddParticle(Short_t, Float_t, Float_t, Float_t, Float_t, Float_t);
+	void AddParticle(Short_t, Float_t, Float_t, Float_t, Float_t, Float_t, Float_t);
 	void Close();
 	virtual ~ParticleTree();
 };
