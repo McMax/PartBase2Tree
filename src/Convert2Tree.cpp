@@ -28,12 +28,12 @@ int main(int argc, char** argv)
 	int event = 0;
 	unsigned pid, eid = 0, old_eid = 0;
 	short charge;
-	float bx, by, px, py, pz, dedx;
+	float bx, by, px, py, pz, dedx, dedx_mtpc;
 	bool firstEvent = true;
 
 	while(true)
 	{
-		infile >> pid >> eid >> bx >> by >> charge >> px >> py >> pz >> dedx;
+		infile >> pid >> eid >> bx >> by >> charge >> px >> py >> pz >> dedx >> dedx_mtpc;
 
 		if(firstEvent)
 		{
