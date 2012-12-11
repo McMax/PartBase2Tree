@@ -22,7 +22,7 @@ public:
 	void BeginEvent();
 	void EndEvent();
 	UInt_t Check();
-	void AddParticle(Short_t, Float_t, Float_t, Float_t, Float_t, Float_t, Float_t);
+	void AddParticle(Short_t, Float_t, Float_t, Float_t, Float_t, Float_t, Float_t, Float_t, Float_t, Float_t); //charge, bx, by, px, py, pz, dedx, dedx_vtpc1, dedx_vtpc2, dedx_mtpc
 	void Close();
 	virtual ~ParticleTree();
 };
