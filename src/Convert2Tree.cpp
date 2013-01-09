@@ -28,12 +28,12 @@ int main(int argc, char** argv)
 	int event = 0;
 	unsigned pid, eid = 0, old_eid = 0;
 	short charge;
-	float bx, by, px, py, pz, dedx, dedx_vtpc1, dedx_vtpc2, dedx_mtpc;
+	float bx, by, px, py, pz, dedx, dedx_vtpc1, dedx_vtpc2, dedx_mtpc, ndedx, ndedx_vtpc1, ndedx_vtpc2, ndedx_mtpc;
 	bool firstEvent = true;
 
 	while(true)
 	{
-		infile >> pid >> eid >> bx >> by >> charge >> px >> py >> pz >> dedx >> dedx_vtpc1 >> dedx_vtpc2 >> dedx_mtpc;
+		infile >> pid >> eid >> bx >> by >> charge >> px >> py >> pz >> dedx >> dedx_vtpc1 >> dedx_vtpc2 >> dedx_mtpc >> ndedx >> ndedx_vtpc1 >> ndedx_vtpc2 >> ndedx_mtpc;
 
 		if(firstEvent)
 		{
@@ -62,7 +62,7 @@ int main(int argc, char** argv)
 			old_eid = eid;
 		}
 
-		particletree.AddParticle(charge, bx, by, px, py, pz, dedx, dedx_vtpc1, dedx_vtpc2, dedx_mtpc);
+		particletree.AddParticle(charge, bx, by, px, py, pz, dedx, dedx_vtpc1, dedx_vtpc2, dedx_mtpc, ndedx, ndedx_vtpc1, ndedx_vtpc2, ndedx_mtpc);
 
 		//cout << particletree.Check() << endl;
 
