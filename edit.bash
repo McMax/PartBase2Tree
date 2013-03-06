@@ -1,2 +1,2 @@
 #!/bin/bash
-vim -p src/*.cpp inc/*.h Makefile
+vim -p Convert2Tree.cpp Makefile Makefile.lxplus

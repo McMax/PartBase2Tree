@@ -5,34 +5,25 @@ CCFLAGS = -g -O0 `root-config --cflags` -lEG -Wall -I./inc
 LDFLAGS = -g -O0 `root-config --libs` -lEG -Wall -L./lib
 
 TOPDIR = .
-SRC_DIR = $(TOPDIR)/src
-OBJ_DIR = $(TOPDIR)/lib
-INC_DIR = $(TOPDIR)/inc
+PEV_DIR = $(TOPDIR)/../Particle_Event
+PEV_LIB = $(PEV_DIR)/lib
+PEV_SRC = $(PEV_DIR)/src
+PEV_INC = $(PEV_DIR)/inc
 
 PROGRAM = converter
 
-SOURCES := $(shell find $(SRC_DIR) -type f -name "*.cpp")
-OBJECTS := $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SOURCES))
-INCLUDES := inc/Event.h inc/Particle.h inc/ParticleTree.h inc/linkdef.h 
+PEV_OBJECTS = $(PEV_LIB)/Particle.o $(PEV_LIB)/Event.o $(PEV_LIB)/ParticleTree.o $(PEV_LIB)/Dict.o
 
 all: $(PROGRAM)
 
-$(PROGRAM): $(OBJECTS) Dict.o
+$(PROGRAM): Convert2Tree.o $(PEV_OBJECTS)
 	$(LD) $(LDFLAGS) $^ -o $@ 
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	mkdir -p $(OBJ_DIR)
-	$(CC) -c $(CCFLAGS) $< -o $@ 
+Convert2Tree.o:
+	$(CC) -c $(CCFLAGS) Convert2Tree.cpp -o Convert2Tree.o
 
-Dict.o: Dict.cpp
-	$(CC) -c $(CCFLAGS) Dict.cpp -o Dict.o
-
-Dict.cpp: $(INCLUDES)
-	@echo "Generating dictionary..."
-	@rootcint -f Dict.cpp -c -P -I$(ROOTSYS) -I/usr/local/include $(INCLUDES)
-
+$(PEV_OBJECTS):
+	@echo "No base libs. Create them"
+	
 clean:
-	@rm -rf $(PROGRAM)./lib	
-
-realclean:
-	@rm -rf $(PROGRAM) ./lib Dict.*
+	@rm -rf $(PROGRAM) Convert2Tree.o
