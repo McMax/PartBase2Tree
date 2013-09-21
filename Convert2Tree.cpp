@@ -5,6 +5,7 @@
 #include "TFile.h"
 #include "TTree.h"
 
+#include "Particle.h"
 #include "ParticleTree.h"
 
 using namespace std;
@@ -30,11 +31,23 @@ int main(int argc, char** argv)
 	short charge;
 	float bx, by, px, py, pz, dedx, dedx_vtpc1, dedx_vtpc2, dedx_mtpc;
 	int ndedx, ndedx_vtpc1, ndedx_vtpc2, ndedx_mtpc;
+	float vtpc1sx, vtpc1sy, vtpc1ex, vtpc1ey, vtpc2sx, vtpc2sy, vtpc2ex, vtpc2ey, mtpcsx, mtpcsy, mtpcex, mtpcey;
 	bool firstEvent = true;
+
+	Particle particle;
 
 	while(true)
 	{
-		infile >> pid >> eid >> bx >> by >> charge >> px >> py >> pz >> dedx >> dedx_vtpc1 >> dedx_vtpc2 >> dedx_mtpc >> ndedx >> ndedx_vtpc1 >> ndedx_vtpc2 >> ndedx_mtpc;
+		particle.Clear();
+
+		infile >> pid >> eid >> 
+			bx >> by >> charge >> 
+			px >> py >> pz >> 
+			dedx >> dedx_vtpc1 >> dedx_vtpc2 >> dedx_mtpc >> 
+			ndedx >> ndedx_vtpc1 >> ndedx_vtpc2 >> ndedx_mtpc >>
+			vtpc1sx >> vtpc1sy >> vtpc1ex >> vtpc1ey >> 
+			vtpc2sx >> vtpc2sy >> vtpc2ex >> vtpc2ey >> 
+			mtpcsx >> mtpcsy >> mtpcex >> mtpcey;
 
 		if(firstEvent)
 		{
@@ -63,8 +76,18 @@ int main(int argc, char** argv)
 			old_eid = eid;
 		}
 
-		particletree.AddParticle(charge, bx, by, px, py, pz, dedx, dedx_vtpc1, dedx_vtpc2, dedx_mtpc, ndedx, ndedx_vtpc1, ndedx_vtpc2, ndedx_mtpc);
+		particle.SetPid(pid);
+		particle.SetCharge(charge);
+		particle.SetBpar(bx, by);
+		particle.SetP(px, py, pz);
+		particle.Setdedx(dedx, dedx_vtpc1, dedx_vtpc2, dedx_mtpc);
+		particle.SetNdedx(ndedx, ndedx_vtpc1, ndedx_vtpc2, ndedx_mtpc);
+		particle.SetVTPC1points(vtpc1sx, vtpc1sy, vtpc1ex, vtpc1ey);
+		particle.SetVTPC2points(vtpc2sx, vtpc2sy, vtpc2ex, vtpc2ey);
+		particle.SetMTPCpoints(mtpcsx, mtpcsy, mtpcex, mtpcey);
 
+		particletree.AddParticle(particle);
+		
 		//cout << particletree.Check() << endl;
 
 		//cout << "Event: " << event << " eid:" << eid << " pid: " << pid << " " << charge << " " << px << " " << py << endl;

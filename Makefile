@@ -1,8 +1,8 @@
 CC	= g++
 LD	= g++
 
-CCFLAGS = -g -O0 `root-config --cflags` -lEG -Wall -I./inc
-LDFLAGS = -g -O0 `root-config --libs` -lEG -Wall -L./lib
+CCFLAGS = -g -O0 `root-config --cflags` -lEG -Wall -I$(PEV_INC)
+LDFLAGS = -g -O0 `root-config --libs` -lEG -Wall -L$(PEV_SRC)
 
 TOPDIR = .
 PEV_DIR = $(TOPDIR)/../Particle_Event
