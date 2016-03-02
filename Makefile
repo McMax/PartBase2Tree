@@ -5,7 +5,7 @@ CCFLAGS = -g -O0 `root-config --cflags` -lEG -Wall -I$(PEV_INC)
 LDFLAGS = -g -O0 `root-config --libs` -lEG -Wall -L$(PEV_SRC)
 
 TOPDIR = .
-PEV_DIR = $(TOPDIR)/../Particle_Event
+PEV_DIR = $(TOPDIR)/../Particle_Event_PbPb
 PEV_LIB = $(PEV_DIR)/lib
 PEV_SRC = $(PEV_DIR)/src
 PEV_INC = $(PEV_DIR)/inc

@@ -27,7 +27,7 @@ int main(int argc, char** argv)
 	cout << "Converting" << endl;
 
 	int event = 0;
-	unsigned pid, eid = 0, old_eid = 0;
+	unsigned pid, eid = 0, old_eid = 0, pid_inc = 0;
 	short charge;
 	float bx, by, px, py, pz, dedx, dedx_vtpc1, dedx_vtpc2, dedx_mtpc;
 	int ndedx, ndedx_vtpc1, ndedx_vtpc2, ndedx_mtpc;
@@ -60,6 +60,7 @@ int main(int argc, char** argv)
 		if(infile.eof())
 		{
 			particletree.EndEvent();
+			cout << event << " events converted" << endl;
 			break;
 		}
 		if(old_eid != eid)
@@ -69,14 +70,39 @@ int main(int argc, char** argv)
 
 			if(++event >= NEVENTS)
 				break;
-			else if(!(event%500))
+			//else if(!(event%500))
 				cout << "Event " << event << endl;
 
 			particletree.BeginEvent();
 			old_eid = eid;
 		}
 
-		particle.SetPid(pid);
+		if(vtpc1sx == 9999)
+			vtpc1sx = NULL;
+		if(vtpc1sy == 9999)
+			vtpc1sy = NULL;
+		if(vtpc1ex == 9999)
+			vtpc1ex = NULL;
+		if(vtpc1ey == 9999)
+			vtpc1ey = NULL;
+		if(vtpc2sx == 9999)
+			vtpc2sx = NULL;
+		if(vtpc2sy == 9999)
+			vtpc2sy = NULL;
+		if(vtpc2ex == 9999)
+			vtpc2ex = NULL;
+		if(vtpc2ey == 9999)
+			vtpc2ey = NULL;
+		if(mtpcsx == 9999)
+			mtpcsx = NULL;
+		if(mtpcsy == 9999)
+			mtpcsy = NULL;
+		if(mtpcex == 9999)
+			mtpcex = NULL;
+		if(mtpcey == 9999)
+			mtpcey = NULL;
+
+		particle.SetPid(++pid_inc);
 		particle.SetCharge(charge);
 		particle.SetBpar(bx, by);
 		particle.SetP(px, py, pz);
