@@ -71,7 +71,7 @@ int main(int argc, char** argv)
 			if(++event >= NEVENTS)
 				break;
 			//else if(!(event%500))
-				cout << "Event " << event << endl;
+				cout << "Event " << event << ", pid: " << pid << ", eid:" << eid << endl;
 
 			particletree.BeginEvent();
 			old_eid = eid;
