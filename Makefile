@@ -1,11 +1,11 @@
 CC	= g++
 LD	= g++
 
-CCFLAGS = -g -O0 `root-config --cflags` -lEG -Wall -I./inc
-LDFLAGS = -g -O0 `root-config --libs` -lEG -Wall -L./lib
+CCFLAGS = -g -O0 `root-config --cflags` -Wall -I./inc -I$(PEV_INC)
+LDFLAGS = -g -O0 `root-config --libs` -Wall -L./lib -L$(PEV_LIB)
 
 TOPDIR = .
-PEV_DIR = $(TOPDIR)/../Particle_Event
+PEV_DIR = $(TOPDIR)/../Particle_Event_PbPb
 PEV_LIB = $(PEV_DIR)/lib
 PEV_SRC = $(PEV_DIR)/src
 PEV_INC = $(PEV_DIR)/inc
@@ -17,7 +17,7 @@ PEV_OBJECTS = $(PEV_LIB)/Particle.o $(PEV_LIB)/Event.o $(PEV_LIB)/ParticleTree.o
 all: $(PROGRAM)
 
 $(PROGRAM): Convert2Tree.o $(PEV_OBJECTS)
-	$(LD) $(LDFLAGS) $^ -o $@ 
+	$(LD) -o $@ $^ $(LDFLAGS)
 
 Convert2Tree.o:
 	$(CC) -c $(CCFLAGS) Convert2Tree.cpp -o Convert2Tree.o
